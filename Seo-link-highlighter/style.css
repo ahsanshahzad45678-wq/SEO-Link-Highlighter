@@ -1,0 +1,16 @@
+
+.dofollow-link{
+outline:3px solid var(--dofollow-color) !important;
+}
+
+.nofollow-link{
+outline:3px solid var(--nofollow-color) !important;
+}
+
+.internal-link{
+background-color:color-mix(in srgb,var(--internal-color) 25%,transparent)!important;
+}
+
+.external-link{
+background-color:color-mix(in srgb,var(--external-color) 25%,transparent)!important;
+}
