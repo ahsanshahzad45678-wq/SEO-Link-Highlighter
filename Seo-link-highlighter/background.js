@@ -7,6 +7,12 @@ chrome.storage.sync.get(null,(data)=>{
 
 try{
 
+const isEnabled=data.extensionEnabled !== false;
+
+if(!isEnabled){
+return;
+}
+
 const domain=new URL(tab.url).hostname;
 
 if((data.pausedSites||[]).includes(domain)){

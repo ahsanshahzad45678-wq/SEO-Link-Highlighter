@@ -25,7 +25,14 @@ colors.forEach(id=>{
 data[id]=document.getElementById(id).value;
 });
 
-chrome.storage.sync.set(data);
+chrome.storage.sync.set(data, () => {
+  // Broadcast settings change to all tabs
+  chrome.tabs.query({}, (tabs) => {
+    tabs.forEach(tab => {
+      chrome.tabs.sendMessage(tab.id, {action: 'updateSettings', settings: data}).catch(() => {});
+    });
+  });
+});
 }
 
 function applyTheme(theme) {
@@ -53,6 +60,12 @@ document.getElementById('externalColor').value=data.externalColor || '#eab308';
 
 const theme = data.theme || 'light';
 applyTheme(theme);
+
+const isEnabled=data.extensionEnabled !== false;
+const toggleSwitch=document.getElementById('extensionToggle');
+if(toggleSwitch){
+  toggleSwitch.classList.toggle('active',isEnabled);
+}
 
 const domain=await getDomain();
 
@@ -107,6 +120,22 @@ if (themeBtn) {
     const nextTheme = document.body.classList.contains('dark') ? 'light' : 'dark';
     chrome.storage.sync.set({theme: nextTheme}, () => {
       applyTheme(nextTheme);
+    });
+  });
+}
+
+const extensionToggle = document.getElementById('extensionToggle');
+if (extensionToggle) {
+  extensionToggle.addEventListener('click', () => {
+    const isCurrentlyEnabled = extensionToggle.classList.contains('active');
+    const newState = !isCurrentlyEnabled;
+    extensionToggle.classList.toggle('active', newState);
+    chrome.storage.sync.set({extensionEnabled: newState}, () => {
+      chrome.tabs.query({}, (tabs) => {
+        tabs.forEach(tab => {
+          chrome.tabs.sendMessage(tab.id, {action: 'toggleExtension', enabled: newState}).catch(() => {});
+        });
+      });
     });
   });
 }

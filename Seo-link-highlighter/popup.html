@@ -93,6 +93,35 @@ body {
   justify-content:center;
   cursor:pointer;
 }
+.toggle-switch {
+  position:relative;
+  width:44px;
+  height:24px;
+  background:#ccc;
+  border:none;
+  border-radius:12px;
+  cursor:pointer;
+  transition:background 0.3s ease;
+  padding:0;
+  margin-left:8px;
+}
+.toggle-switch.active {
+  background:var(--accent);
+}
+.toggle-switch::after {
+  content:'';
+  position:absolute;
+  width:20px;
+  height:20px;
+  background:white;
+  border-radius:10px;
+  top:2px;
+  left:2px;
+  transition:left 0.3s ease;
+}
+.toggle-switch.active::after {
+  left:22px;
+}
 .section {
   padding:12px 14px;
   margin-bottom:10px;
@@ -194,6 +223,7 @@ button.resume { background:var(--button-bg-resume); }
 <div class="container">
   <div class="header-card">
     <button id="themeBtn" class="theme-toggle" type="button" aria-label="Toggle theme">☾</button>
+    <button id="extensionToggle" class="toggle-switch active" type="button" aria-label="Toggle extension"></button>
     <div>
       <h1 class="header-title">SEO Link Highlighter</h1>
       <p class="subtitle">Instantly highlight all link types across pages</p>

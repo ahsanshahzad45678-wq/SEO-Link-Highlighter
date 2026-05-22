@@ -7,6 +7,18 @@ if(request.action==='scan'){
 scanLinks(request.settings);
 }
 
+if(request.action==='toggleExtension'){
+if(request.enabled){
+scanLinks(request.settings);
+}else{
+reset();
+}
+}
+
+if(request.action==='updateSettings'){
+scanLinks(request.settings);
+}
+
 });
 
 function scanLinks(settings){
