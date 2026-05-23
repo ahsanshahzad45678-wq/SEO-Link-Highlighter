@@ -45,6 +45,32 @@ function applyTheme(theme) {
   }
 }
 
+function updateTabsForToggle(enabled, settings = {}) {
+  chrome.tabs.query({}, (tabs) => {
+    tabs.forEach((tab) => {
+      if (!tab.id || !tab.url || !/^https?:/.test(tab.url)) {
+        return;
+      }
+
+      if (enabled) {
+        chrome.scripting.insertCSS({
+          target: { tabId: tab.id },
+          files: ['style.css']
+        });
+
+        chrome.scripting.executeScript({
+          target: { tabId: tab.id },
+          files: ['content.js']
+        }, () => {
+          chrome.tabs.sendMessage(tab.id, { action: 'scan', settings }).catch(() => {});
+        });
+      } else {
+        chrome.tabs.sendMessage(tab.id, { action: 'toggleExtension', enabled: false }).catch(() => {});
+      }
+    });
+  });
+}
+
 async function load(){
 
 chrome.storage.sync.get(null,async(data)=>{
@@ -130,12 +156,15 @@ if (extensionToggle) {
     const isCurrentlyEnabled = extensionToggle.classList.contains('active');
     const newState = !isCurrentlyEnabled;
     extensionToggle.classList.toggle('active', newState);
+
     chrome.storage.sync.set({extensionEnabled: newState}, () => {
-      chrome.tabs.query({}, (tabs) => {
-        tabs.forEach(tab => {
-          chrome.tabs.sendMessage(tab.id, {action: 'toggleExtension', enabled: newState}).catch(() => {});
+      if (newState) {
+        chrome.storage.sync.get(null, (data) => {
+          updateTabsForToggle(true, data);
         });
-      });
+      } else {
+        updateTabsForToggle(false);
+      }
     });
   });
 }

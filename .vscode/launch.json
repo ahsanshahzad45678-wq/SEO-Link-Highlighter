@@ -1,0 +1,18 @@
+{
+
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Launch Chrome with Extension",
+            "type": "chrome",
+            "request": "launch",
+            "runtimeExecutable": "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
+            "runtimeArgs": [
+                "--load-extension=${workspaceFolder}/Seo-link-highlighter",
+                "--disable-extensions-except=${workspaceFolder}/Seo-link-highlighter"
+            ],
+            "userDataDir": "${workspaceFolder}/.vscode/chrome-profile",
+            "url": "chrome://extensions/"
+        }
+    ]
+}
