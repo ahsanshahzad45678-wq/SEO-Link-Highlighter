@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "SEO Link Highlighter",
   "short_name": "SEO Highlighter",
-  "version": "6.2",
+  "version": "6.2.1",
   "description": "Highlight dofollow, nofollow, internal and external links with custom colors.",
   "permissions": ["activeTab", "scripting", "tabs", "storage"],
   "host_permissions": ["<all_urls>"],

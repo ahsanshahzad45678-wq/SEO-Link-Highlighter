@@ -38,7 +38,8 @@ body.dark {
   --accent:#8b5cf6;
 }
 body {
-  width:340px;
+  width:320px;
+  max-width:320px;
   margin:0;
   padding:0;
   font-family:Segoe UI, Arial, sans-serif;
@@ -46,22 +47,25 @@ body {
   color:var(--text);
 }
 .container {
-  padding:18px;
+  padding:12px;
 }
 .header-card,
 .section {
   background:var(--card);
-  border:1px solid var(--border);
+  border:1px solid var(--item-border);
   border-radius:18px;
   box-shadow:var(--shadow);
 }
 .header-card {
-  padding:12px 16px;
+  padding:12px 14px;
   margin-bottom:12px;
   display:flex;
   align-items:flex-start;
   gap:10px;
   position:relative;
+}
+.header-card::before {
+  display:none;
 }
 .header-card > div {
   flex:1;
@@ -71,40 +75,41 @@ body {
 }
 .header-title {
   margin:0;
-  font-size:16px;
-  letter-spacing:.01em;
+  font-size:15px;
+  letter-spacing:.02em;
   text-align:left;
 }
 .subtitle {
   margin:4px 0 0;
   font-size:11px;
   color:var(--muted);
-  line-height:1.3;
+  line-height:1.35;
   text-align:left;
 }
 .theme-toggle {
-  width:34px;
-  height:34px;
+  width:32px;
+  height:32px;
   padding:0;
   border-radius:12px;
   border:none;
   background:var(--accent);
   color:var(--button-text);
-  font-size:16px;
+  font-size:14px;
   display:flex;
   align-items:center;
   justify-content:center;
   cursor:pointer;
+  box-shadow:0 8px 16px rgba(67,56,202,0.16);
 }
 .toggle-switch {
   position:relative;
-  width:38px;
+  width:36px;
   height:20px;
-  background:#ccc;
+  background:#d1d5db;
   border:none;
   border-radius:10px;
   cursor:pointer;
-  transition:background 0.3s ease;
+  transition:background 0.25s ease;
   padding:0;
   margin-left:8px;
 }
@@ -117,48 +122,61 @@ body {
   width:16px;
   height:16px;
   background:white;
-  border-radius:10px;
+  border-radius:50%;
   top:2px;
   left:2px;
-  transition:left 0.3s ease;
+  transition:left 0.25s ease;
+  box-shadow:0 2px 8px rgba(15,23,42,0.14);
 }
 .toggle-switch.active::after {
-  left:20px;
+  left:18px;
 }
 .section {
-  padding:12px 14px;
+  padding:12px 12px;
   margin-bottom:10px;
+  transition:transform 0.2s ease, box-shadow 0.2s ease;
+}
+.section:hover {
+  transform:translateY(-0.5px);
+  box-shadow:0 10px 22px rgba(15,23,42,0.08);
 }
 .section h2 {
   margin:0 0 8px;
-  font-size:13px;
+  font-size:12px;
   color:var(--section-title);
   text-align:center;
+  letter-spacing:.02em;
 }
 .toggle-grid {
   display:grid;
-  grid-template-columns:1fr auto;
-  gap:8px 8px;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
 }
 .toggle-item {
   display:flex;
   align-items:center;
   justify-content:space-between;
   border:1px solid var(--item-border);
-  border-radius:12px;
-  padding:8px 10px;
+  border-radius:16px;
+  padding:12px 14px;
   background:var(--toggle-bg);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,0.6);
+  transition:transform 0.2s ease, border-color 0.2s ease;
+}
+.toggle-item:hover {
+  transform:translateY(-0.5px);
+  border-color:rgba(67,56,202,0.25);
 }
 .toggle-item label {
   display:flex;
   align-items:center;
   gap:10px;
-  font-size:13px;
+  font-size:12px;
   color:var(--text);
 }
 input[type='checkbox'] {
-  width:18px;
-  height:18px;
+  width:16px;
+  height:16px;
   accent-color:var(--accent);
 }
 .color-grid {
@@ -171,19 +189,22 @@ input[type='checkbox'] {
   align-items:center;
   justify-content:space-between;
   border:1px solid var(--item-border);
-  border-radius:14px;
+  border-radius:16px;
   padding:10px 12px;
-  background:var(--card);
+  background:var(--toggle-bg);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,0.6);
 }
 .color-card span {
-  font-size:15px;
+  font-size:13px;
   color:var(--text);
+  font-weight:600;
 }
 input[type='color'] {
-  width:24px;
-  height:28px;
+  width:32px;
+  height:32px;
   border:none;
   padding:0;
+  border-radius:20px;
   background:none;
   cursor:pointer;
 }
@@ -194,30 +215,45 @@ input[type='color'] {
   line-height:1.5;
 }
 .status-note {
-  margin:6px 0 0;
-  font-size:11px;
+  margin:8px 0 0;
+  font-size:12px;
   color:var(--muted);
   text-align:center;
-  line-height:1.3;
+  line-height:1.4;
   display:none;
 }
 button {
   width:100%;
-  margin-top:4px;
-  padding:12px 0;
+  margin-top:6px;
+  padding:10px 0;
   border:none;
-  border-radius:14px;
-  font-size:14px;
-  font-weight:600;
+  border-radius:16px;
+  font-size:13px;
+  font-weight:700;
   color:var(--button-text);
   cursor:pointer;
+  transition:transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow:0 8px 18px rgba(15,23,42,0.14);
 }
-button.pause { background:var(--button-bg-pause); }
-button.resume { background:var(--button-bg-resume); }
+button:hover {
+  transform:translateY(-0.5px);
+}
+button.pause { background:linear-gradient(135deg, #ef4444, #f97316); }
+button.resume { background:linear-gradient(135deg, #22c55e, #14b8a6); }
+.version-badge {
+  display:inline-block;
+  margin-top:8px;
+  padding:3px 8px;
+  border-radius:999px;
+  font-size:10px;
+  font-weight:700;
+  color:#4f46e5;
+  background:rgba(67,56,202,0.08);
+}
 .footer {
   margin-top:6px;
   font-size:10px;
-  color:var(--footer);
+  color:var(--muted);
   text-align:center;
 }
 </style>
@@ -229,6 +265,7 @@ button.resume { background:var(--button-bg-resume); }
     <div>
       <h1 class="header-title">SEO Link Highlighter</h1>
       <p class="subtitle">Instantly highlight all link types across pages</p>
+      <span class="version-badge">v6.2</span>
     </div>
     <button id="extensionToggle" class="toggle-switch active" type="button" aria-label="Toggle extension"></button>
   </div>
