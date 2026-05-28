@@ -169,4 +169,13 @@ if (extensionToggle) {
   });
 }
 
+function setVersionBadge() {
+  const versionBadge = document.getElementById('versionBadge');
+  if (versionBadge && chrome.runtime && chrome.runtime.getManifest) {
+    const manifest = chrome.runtime.getManifest();
+    versionBadge.textContent = manifest.version ? `v${manifest.version}` : '';
+  }
+}
+
+setVersionBadge();
 load();
